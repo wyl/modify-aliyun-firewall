@@ -1,0 +1,18 @@
+
+# This is a TOML document. Boom.
+
+region_id = "cn-beijing"
+
+[[firewall]]
+id = "dds-instance-id"
+name = "dds-description-name"
+group_name = "shenzhen"
+modify_mode = "Cover"
+type = "Dds"
+
+[[firewall]]
+id = "r-instance-id"
+name = "r-description-name"
+group_name = "shenzhen"
+modify_mode = "Cover"
+type = "R-kvstore"
