@@ -12,19 +12,20 @@ import (
 type IndexClient struct {
 	AliyunSecret *core.AliSecret
 	Instance     *core.Instance
+	Ip           string
 }
 
 func NewIndexClient() *IndexClient {
 	ic := IndexClient{
 		AliyunSecret: core.NewAliSecret(),
 		Instance:     core.NewInstance(),
+		Ip:           core.GetIP(),
 	}
+
 	return &ic
 }
 
 func (ic *IndexClient) Apply() {
-	ip := core.GetIP()
-	fmt.Println(fmt.Sprintf("Current Ip:[%v]", ip))
 	for _, item := range ic.Instance.Firewall {
 		switch item.Type {
 		case "Dds":
@@ -33,7 +34,7 @@ func (ic *IndexClient) Apply() {
 			} else {
 				params := dds.CreateModifySecurityIpsRequest()
 				params.ModifyMode = string(item.ModifyMode)
-				params.SecurityIps = ip
+				params.SecurityIps = ic.Ip
 				params.SecurityIpGroupName = item.GroupName
 				params.DBInstanceId = item.Id
 
@@ -52,7 +53,7 @@ func (ic *IndexClient) Apply() {
 			} else {
 				params := r_kvstore.CreateModifySecurityIpsRequest()
 				params.ModifyMode = string(item.ModifyMode)
-				params.SecurityIps = ip
+				params.SecurityIps = ic.Ip
 				params.SecurityIpGroupName = item.GroupName
 				params.InstanceId = item.Id
 				res, err := client.ModifySecurityIps(params)
@@ -66,7 +67,7 @@ func (ic *IndexClient) Apply() {
 }
 
 func (ic *IndexClient) Confirm() bool {
-
+	fmt.Println(fmt.Sprintf("IP:%v", ic.Ip))
 	fmt.Println(fmt.Sprintf("KeyID:%v/KeySecret:%v", ic.AliyunSecret.AccessKeyID, ic.AliyunSecret.AccessKeySecret))
 	fmt.Println("Instance List:")
 	for _, v := range ic.Instance.Firewall {

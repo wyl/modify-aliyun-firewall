@@ -38,5 +38,5 @@ type FireWall struct {
 }
 
 func (result FireWall) String() string {
-	return fmt.Sprintf("instance id: %-20v\t name: %-20v\t group: %-20v\t mode: %-20v\t ", result.Id, result.Name, result.GroupName, result.ModifyMode)
+	return fmt.Sprintf("InstanceId: %-20v\t %-20v\t %-20v\t %-20v\t ", result.Id, result.Name, result.GroupName, result.ModifyMode)
 }
