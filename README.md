@@ -8,7 +8,8 @@ export ALIYUN_ACCESS_KEY_ID=YOURID
 export ALIYUN_ACCESS_KEY_SECRET=YOUR_SECRET
 ```
 
-### 更改的 Instance IDs
+### DB Instance
+支持 Mongo/Redis.
 ```toml
 
 # This is a TOML document. Boom.
