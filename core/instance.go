@@ -5,6 +5,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/mitchellh/go-homedir"
+	"modify-aliyun-firewall/core/firewall"
 	"modify-aliyun-firewall/logger"
 )
 
@@ -29,13 +30,13 @@ func NewInstance() *Instance {
 }
 
 type FireWall struct {
-	Id         string `toml:"id"`
-	Name       string `toml:"name"`
-	GroupName  string `toml:"group_name"`
-	ModifyMode string `toml:"modify_mode"`
-	Type       string `toml:"type"`
+	Id         string              `toml:"id"`
+	Name       string              `toml:"name"`
+	GroupName  string              `toml:"group_name"`
+	ModifyMode firewall.ModifyMode `toml:"modify_mode"`
+	Type       string              `toml:"type"`
 }
 
 func (result FireWall) String() string {
-	return fmt.Sprintf("instance id: %-20v\t name: %-20v\t group: %-20v\t ", result.Id, result.Name, result.GroupName)
+	return fmt.Sprintf("instance id: %-20v\t name: %-20v\t group: %-20v\t mode: %-20v\t ", result.Id, result.Name, result.GroupName, result.ModifyMode)
 }

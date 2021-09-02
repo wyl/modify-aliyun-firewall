@@ -21,18 +21,10 @@ func NewIndexClient() *IndexClient {
 	}
 	return &ic
 }
-func main() {
 
+func (ic *IndexClient) Apply() {
 	ip := core.GetIP()
-	fmt.Println("Current Ip:", ip)
-	ic := NewIndexClient()
-
-	//b, _ := json.MarshalIndent(ic.Instance, "", "\t")
-	//fmt.Println(string(b))
-	if ic.AliyunSecret.AccessKeyID == "" || ic.AliyunSecret.AccessKeySecret == "" {
-		logger.MyLogger.ErrorLog.Panic(fmt.Sprintf("请确认你的认证信息 AccessKeyID:%v,AccessKeySecret:%v", ic.AliyunSecret.AccessKeyID, ic.AliyunSecret.AccessKeySecret))
-	}
-
+	fmt.Println(fmt.Sprintf("Current Ip:[%v]", ip))
 	for _, item := range ic.Instance.Firewall {
 		switch item.Type {
 		case "Dds":
@@ -40,7 +32,7 @@ func main() {
 				logger.MyLogger.ErrorLog.Panic(err)
 			} else {
 				params := dds.CreateModifySecurityIpsRequest()
-				params.ModifyMode = item.ModifyMode
+				params.ModifyMode = string(item.ModifyMode)
 				params.SecurityIps = ip
 				params.SecurityIpGroupName = item.GroupName
 				params.DBInstanceId = item.Id
@@ -59,7 +51,7 @@ func main() {
 				logger.MyLogger.ErrorLog.Panic(err)
 			} else {
 				params := r_kvstore.CreateModifySecurityIpsRequest()
-				params.ModifyMode = item.ModifyMode
+				params.ModifyMode = string(item.ModifyMode)
 				params.SecurityIps = ip
 				params.SecurityIpGroupName = item.GroupName
 				params.InstanceId = item.Id
@@ -69,7 +61,32 @@ func main() {
 				}
 				logger.MyLogger.InfoLog.Println(item, res.IsSuccess())
 			}
-
 		}
 	}
+}
+
+func (ic *IndexClient) Confirm() bool {
+
+	fmt.Println(fmt.Sprintf("KeyID:%v/KeySecret:%v", ic.AliyunSecret.AccessKeyID, ic.AliyunSecret.AccessKeySecret))
+	fmt.Println("Instance List:")
+	for _, v := range ic.Instance.Firewall {
+		logger.MyLogger.InfoLog.Println(v)
+	}
+	return logger.YesNo("")
+}
+
+func main() {
+
+	ic := NewIndexClient()
+
+	//b, _ := json.MarshalIndent(ic.Instance, "", "\t")
+	//fmt.Println(string(b))
+	if ic.AliyunSecret.AccessKeyID == "" || ic.AliyunSecret.AccessKeySecret == "" {
+		logger.MyLogger.ErrorLog.Panic(fmt.Sprintf("请确认你的认证信息 AccessKeyID:%v,AccessKeySecret:%v", ic.AliyunSecret.AccessKeyID, ic.AliyunSecret.AccessKeySecret))
+	}
+
+	if ic.Confirm() {
+		ic.Apply()
+	}
+
 }

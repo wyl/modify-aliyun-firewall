@@ -3,6 +3,7 @@ package core
 import (
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 type IpData struct {
@@ -19,5 +20,5 @@ func GetIP() (ip string) {
 	if err != nil {
 		panic(err)
 	}
-	return string(body)
+	return strings.TrimSpace(string(body))
 }
