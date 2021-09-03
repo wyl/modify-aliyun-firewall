@@ -2,8 +2,6 @@
 
 # Modify Aliyun Firewall
 
-### file 
-配置文件参考，_config.toml
 ### modify-aliyun-firewall
 目录信息
 
