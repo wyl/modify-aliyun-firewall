@@ -40,7 +40,7 @@ Flags:
 
 Use "modify-aliyun-firewall [command] --help" for more information about a command.
 ```
-默认配置文件 `.config.toml` ，自定义配置文件 --config <your-config>。
+默认配置文件 `config.toml` ，自定义配置文件 --config <your-config>。
 
 ### example 
 ```shell script
