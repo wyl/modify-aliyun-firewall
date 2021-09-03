@@ -25,8 +25,8 @@ import (
 var showCmd = &cobra.Command{
 	Use:     "show",
 	Aliases: []string{"test", "verify"},
-	Short:   "仅显示获取到的数据变量",
-	Long: `仅显示获取到的数据变量. For example:
+	Short:   "展示获取到的变量信息",
+	Long: `展示获取到的变量信息. For example:
 
 变量信息以 json 的格式进行输出.`,
 	Run: func(cmd *cobra.Command, args []string) {
