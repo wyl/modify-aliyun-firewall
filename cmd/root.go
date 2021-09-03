@@ -51,7 +51,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "config file (default is ./.config.toml)")
+	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "config file (default is ./config.toml)")
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 	//rootCmd.PersistentFlags().StringVar(&accessKeyId, "keyId", "", "")
 	//rootCmd.PersistentFlags().StringVar(&accessKeySecret, "keySecret", "", "")
