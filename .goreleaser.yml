@@ -10,7 +10,7 @@ before:
 #    - go generate ./...
 builds:
   - id: modify-aliyun-firewall
-    main: ./modify-aliyun-firewall.go
+    main: ./main.go
     binary: modify-aliyun-firewall
     env:
       - CGO_ENABLED=0

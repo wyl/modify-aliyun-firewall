@@ -2,6 +2,58 @@
 
 # Modify Aliyun Firewall
 
+
+## help
+
+```shell script
+
+wangyalong@wangyalongde-MacBook-Pro-for-Job modify-aliyun-firewall_darwin_amd64$ ./modify-aliyun-firewall help
+
+更改阿里云云产品的白名单:
+
+目前支持：mongo/redis 服务的白名单更改。
+
+Usage:
+  modify-aliyun-firewall [command]
+
+Available Commands:
+  apply       执行更改操作
+  help        Help about any command
+  show        仅显示获取到的数据变量
+
+Flags:
+      --config string   config file (default is ./.config.toml)
+  -h, --help            help for modify-aliyun-firewall
+
+Use "modify-aliyun-firewall [command] --help" for more information about a command.
+```
+
+
+### show 
+```
+wangyalong@wangyalongde-MacBook-Pro-for-Job modify-aliyun-firewall_darwin_amd64$ ./modify-aliyun-firewall show
+INFO 2021/09/03 15:53:00 获取到的信息如下：
+{
+	"AliyunSecret": {
+		"KeyId": "your-id",
+		"KeySecret": "our-secret"
+	},
+	"Instance": {
+		"RegionId": "cn-beijing",
+		"Firewall": [
+			{
+				"Id": "dds-your-id",
+				"Name": "fm-ddd-dev-001",
+				"GroupName": "group-name",
+				"ModifyMode": "Cover",
+				"Type": "Dds"
+			}
+		]
+	},
+	"Ip": "113.204.*.*"
+}
+```
+
 ### Aliyun secret
 ```shell
 export ALIYUN_ACCESS_KEY_ID=YOURID
@@ -13,7 +65,7 @@ export ALIYUN_ACCESS_KEY_SECRET=YOUR_SECRET
 ```toml
 
 # This is a TOML document. Boom.
-region_id = "cn-beijing"
+regionId = "cn-beijing"
 
 [[firewall]]
 id = "dds-instance-id"
@@ -25,8 +77,8 @@ type = "Dds"
 [[firewall]]
 id = "r-instance-id"
 name = "r-description-name"
-group_name = "shenzhen"
-modify_mode = "Cover"
+groupName = "shenzhen"
+modifyMode = "Cover"
 type = "R-kvstore"
 
 ```
@@ -45,10 +97,4 @@ wangyalong@wangyalongde-MacBook-Pro-for-Job modify-aliyun-firewall_0.0.2_Linux_a
 
 0 directories, 2 files
 
-```
-
-### 执行
-```shell script
-
-./modify-aliyun-firewall 
 ```
